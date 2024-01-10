@@ -3,42 +3,50 @@ var app=angular.module("mainApp",[]);
 app.controller("CRUDController",function($scope, $http){
     
 
-$scope.EmpList=[];
-
+$scope.STdetails=[];
 // Fetch data from the backend on page load
 $http.get('http://localhost:3000/api/users')
 .then(function (response) {
-    $scope.EmpList = response.data; // Assign fetched data to EmpList
+    $scope.STdetails = response.data; // Assign fetched data to EmpList
 })
 .catch(function (error) {
     console.error('Error fetching users:', error);
 });
 
-$scope.AddData= function(){
-var emp = { //object
-    SId:$scope.SId,
-    Name:$scope.Name,
-    Salary:$scope.Salary
-};
-$scope.EmpList.push(emp); //add array items
 
-$http.post('http://localhost:3000/api/users', emp)
-            .then(function(response) {
-                console.log('User added successfully:', response.data);
-                // Handle success if needed
-            })
-            .catch(function(error) {
-                console.error('Error adding user:', error);
-                // Handle error if needed
-            });
-            ClearModel();
-};
+$scope.AddData=function(){
+    var st={
+        rno:$scope.rno,
+        Student_Name:$scope.Student_Name,
+        Father_Name:$scope.Father_Name,
+        Mother_Name:$scope.Mother_Name,
+        DOB:$scope.DOB,
+        Email:$scope.Email,
+        Phone_No:$scope.Phone_No,
+        Gender:$scope.Gender,
+        Level:$scope.Level,
+        Department:$scope.Department
+    };
+    $scope.STdetails.push(st);
+    $http.post('http://localhost:3000/api/users',st)
+    .then(function(response){
+        console.log('user added successfully:',response.data);
+        
+        alert("Registration Success");
 
-$scope.DeleteData= function(emp){
-    var index=$scope.EmpList.indexOf(emp); // select index to delete
-    $scope.EmpList.splice(index,1); // delete in the array
+    })
+    .catch(function(error){
+        console.error('error adding user :',error);
 
-    $http.delete('http://localhost:3000/api/users/' + emp.SId)
+    });
+    ClearModel();
+}
+
+$scope.DeleteData= function(stud){
+    var index=$scope.STdetails.indexOf(stud); // select index to delete
+    $scope.STdetails.splice(index,1); // delete in the array
+
+    $http.delete('http://localhost:3000/api/users/' + stud.rno)
     .then(function(response) {
         console.log('User deleted successfully:', response.data);
         // Handle success if needed
@@ -51,34 +59,53 @@ $scope.DeleteData= function(emp){
 
 };
 
-$scope.BindSelectedData = function(emp){
-$scope.SId=emp.SId;
-$scope.Name=emp.Name;
-$scope.Salary=emp.Salary;
+$scope.BindSelectedData = function(stud){
+    $scope.rno=stud.rno,
+$scope.Student_Name=stud.Student_Name,
+$scope.Father_Name=stud.Father_Name,
+$scope.Mother_Name=stud.Mother_Name,
+$scope.DOB=stud.DOB,
+$scope.Email=stud.Email,
+$scope.Phone_No=stud.Phone_No,
+$scope.Gender=stud.Gender,
+$scope.Level=stud.Level,
+$scope.Department=stud.Department
 };
 
-
 $scope.UpdateData = function(){
-$.grep($scope.EmpList,function(e){ //grep is used to update array 
-if(e.SId==$scope.SId)
-{
-    e.SId=$scope.SId;
-    e.Name=$scope.Name;
-    e.Salary=$scope.Salary;
+$.grep($scope.STdetails,function(e){ //grep is used to update array 
+if(e.rno==$scope.rno)
+{    e.rno=$scope.rno,
+    e.Student_Name=$scope.Student_Name,
+        e.Father_Name=$scope.Father_Name,
+        e.Mother_Name=$scope.Mother_Name,
+        e.DOB=$scope.DOB,
+        e.Email=$scope.Email,
+        e.Phone_No=$scope.Phone_No,
+        e.Gender=$scope.Gender,
+        e.Level=$scope.Level,
+        e.Department=$scope.Department
 }
 });
 var updatedEmployee = {
-    SId: $scope.SId,
-    Name: $scope.Name,
-    Salary: $scope.Salary
+    rno:$scope.rno,
+    Student_Name:$scope.Student_Name,
+        Father_Name:$scope.Father_Name,
+        Mother_Name:$scope.Mother_Name,
+        DOB:$scope.DOB,
+        Email:$scope.Email,
+        Phone_No:$scope.Phone_No,
+        Gender:$scope.Gender,
+        Level:$scope.Level,
+        Department:$scope.Department
 };
-$http.put('http://localhost:3000/api/users/' + $scope.SId, updatedEmployee)
+$http.put('http://localhost:3000/api/users/' + $scope.rno, updatedEmployee)
             .then(function (response) {
                 console.log('User updated successfully:', response.data);
 
-                var index = $scope.EmpList.findIndex(emp => emp.SId === $scope.SId);
+                var index = $scope.STdetails.findIndex(stud => stud.rno === $scope.rno);
                 if (index !== -1) {
-                    $scope.EmpList[index] = angular.copy(updatedEmployee);
+                    $scope.STdetails[index] = angular.copy(updatedEmployee);
                 }
             })
             .catch(function (error) {
