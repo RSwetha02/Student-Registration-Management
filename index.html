@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <script src="crud1.js"></script>
+
+		<link rel="stylesheet" href="index.css">
+		<!--<script>
+			$(document).ready(function(){
+				$("#home").click(function(){
+					$(".div1").hide();
+					$("div0").fadeIn();
+				});
+			});
+		</script>-->
+</head>
+
+<body>
+	<div class="container">
+<div class="one"></div>
+<div class="two"></div>
+<div class="main-head">S - TECHNOLOGY</div>
+
+<div class="menu" id="main-menu1">
+	<ul>
+		<li id="home"><a href="#div0"><b>HOME</b></a></li>
+		<li id="course"><a href="#main-menu2"><b>COURSES</b></a></li>
+		<li id="emp-rec"><a href="#div1"><b>EMPLOYEE RECORDS</b></a></li>
+	</ul>
+</div>
+
+<img src="image.jpg" class="img1">
+
+<div class="content">
+	<h1 id="head1">
+		<span class="glyphicon glyphicon-user" style="color:rgb(148, 79, 197);font-size:80%"></span>
+		EMPLOYEE RECORD MANAGEMENT
+	</h1>
+	<hr>
+
+	<div ng-app="mainApp" ng-controller="CRUDController" class="div1">
+		<table class="table1">
+			 <tr>
+				 <td><b>Id</b></td>
+				 <td><input type="text" ng-model="SId" ></td>
+				 <td rowspan="3">
+					 <img src="employee.png" class="emp-img" >
+				 </td>
+			 </tr>
+			 <tr>
+				 <td><b>Name</b></td>
+				 <td><input type="text" ng-model="Name"></td>
+			 </tr>
+			 <tr>
+				 <td><b>Salary</b></td>
+				 <td><input type="number" ng-model="Salary"></td>
+			 </tr>
+			 <tr>
+				 <td colspan="2">
+					 <input type="button" ng-click="AddData()" value="Save" class="btn btn-success">
+					 <input type="button" ng-click="UpdateData()" value="Update" class="btn btn-primary">
+				 </td>
+			 </tr>
+		 </table>
+		 <hr>
+		 <table  class="table2">
+			 <thead>
+				 <th>ID</th>
+				 <th>Name</th>
+				 <th>Salary</th>
+			 </thead>
+			 <tr ng-click="BindSelectedData(Emp)" ng-repeat="Emp in EmpList">
+				 <td>{{Emp.SId}}</td>
+				 <td>{{Emp.Name}}</td>
+				 <td>{{Emp.Salary}}</td>
+				 <td>
+					 <button type="button" class="btn btn-danger" ng-click="DeleteData(Emp)">
+						 <span class="glyphicon glyphicon-trash" style="font-size: 100%;"></span>Delete
+					 </button>
+				 </td>
+			 </tr>
+		 </table>
+	 </div>
+	 <script src="crud1.js"></script>
+	 </div>
+
+<!--<div class="div0" >
+	<h1>Welcome to home</h1>
+</div>-->
+
+</div>
+
+</body>
+</html>
